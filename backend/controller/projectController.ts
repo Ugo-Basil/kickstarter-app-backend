@@ -27,6 +27,7 @@ export const createProject = (req: Request, res: Response) => {
 //@route GET /api/:id
 //@access Public
 export const getProject = (req: Request, res: Response) => {
+    
     res.status(200).json({message: `Get Project ${req.params.id}`})
 }
 
