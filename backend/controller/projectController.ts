@@ -29,12 +29,12 @@ export const getProject = (req: Request, res: Response) => {
 //@route PUT /api/:id
 //@access Private
 export const updateProject = (req: Request, res: Response) => {
-    res.status(200).json({message: `Update Project ${req.params.id}`})
+    res.status(201).json({message: `Update Project ${req.params.id}`})
 }
 
 //@desc Delete project
 //@route DELETE /api/:id
 //@access Private
 export const deleteProject = (req: Request, res: Response) => {
-    res.status(200).json({ message: `Delete Project ${req.params.id}`})
+    res.status(204).json({ message: `Delete Project ${req.params.id}`})
 }
