@@ -13,6 +13,12 @@ export const getProjects = (req:Request, res:Response ) => {
 //@route POST /api
 //@access Private
 export const createProject = (req: Request, res: Response) => {
+
+    if (!req.body.title) {
+        res.status(400)
+        throw new Error('Title is required')
+    }
+
     res.status(201).json({message: 'Create project'})
 }
 
