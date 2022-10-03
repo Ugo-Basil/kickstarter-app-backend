@@ -3,7 +3,7 @@ import { Request, Response} from "express";
 const asyncHandler = require('express-async-handler')
 import { createProject, deleteProject, getProjectById, getProjects, updateProject } from "../services/projectService";
 
-import { checkIsValidObjectId } from "../database/db";
+
 
 
 //@desc Get all projects
@@ -20,11 +20,6 @@ export const getProjectsHandler = asyncHandler(async (req: Request, res: Respons
 //@route POST /api
 //@access Private
 export const createProjectHandler = asyncHandler(async(req: Request, res: Response) => {
-
-    if (!req.body.title) {
-        res.status(400)
-        throw new Error('Title is required')
-    }
 
     const createdProject = await createProject(req.body)
    
@@ -52,11 +47,6 @@ export const getProjectHandler = asyncHandler(async (req: Request, res: Response
 //@access Private
 export const updateProjectHandler = asyncHandler(async (req: Request, res: Response) => {
 
-    if (!req.body.title) {
-      res.status(400);
-      throw new Error("Title is required");
-    }
-
 const project = await updateProject(req.params.id, req.body)
     
     res.status(201).json(project)
@@ -69,7 +59,7 @@ const project = await updateProject(req.params.id, req.body)
 //@access Private
 export const deleteProjectHandler = asyncHandler(async (req: Request, res: Response) => {
 
-    const project = await deleteProject(req.params.id);
+    await deleteProject(req.params.id);
    
-    res.status(200).json({ message: `Delete Project ${req.params.id} deleted`, project : project})
+    res.status(200).json({ message: `Delete Project ${req.params.id} deleted`})
 })

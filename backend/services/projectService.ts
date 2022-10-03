@@ -1,6 +1,7 @@
 import ProjectModel from "../models/projectModel";
 import { ProjectType } from "../types/projectTypes";
 import { checkIsValidObjectId } from "../database/db";
+import { sanitizeProject } from "../sanitizers/projectSanitizer";
 
 
 export async function getProjects(): Promise<ProjectType[]> {
@@ -17,8 +18,9 @@ export async function getProjects(): Promise<ProjectType[]> {
 }
 
 export async function createProject(project: ProjectType): Promise<ProjectType> {
+    const sanitizedProject = sanitizeProject(project);
     try {
-        const newProject = await ProjectModel.create(project)
+        const newProject = await ProjectModel.create(sanitizeProject)
         if (!newProject) {
             throw new Error('Failed to create project');
         }
@@ -45,8 +47,9 @@ export async function getProjectById(projectId: string): Promise<ProjectType>{
 
 export async function updateProject(projectId: string, project: ProjectType): Promise<ProjectType>{
     checkIsValidObjectId(projectId);
+    const sanitizedProject = sanitizeProject(project)
     try {
-        const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, project, {new:true})
+        const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, sanitizedProject, {new:true})
         if (!updatedProject) {
             throw new Error('Failed to update project')
         }
