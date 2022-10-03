@@ -1,12 +1,12 @@
 import * as express from 'express'
 
-import { createProject, deleteProject, getProject, getProjects, updateProject } from '../controller/projectController'
+import { createProjectHandler, deleteProjectHandler, getProjectHandler, getProjectsHandler, updateProjectHandler } from '../controller/projectController'
 
 const router = express.Router()
 
-router.route('/').get(getProjects).post(createProject)
+router.route('/').get(getProjectsHandler).post(createProjectHandler)
 
-router.route('/:id').get(getProject).put(updateProject).delete(deleteProject)
+router.route('/:id').get(getProjectHandler).put(updateProjectHandler).delete(deleteProjectHandler)
 
 
 
